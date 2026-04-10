@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Taller Grado 9 — Números Reales y Potenciación</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:opsz,wght@8..60,300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{--navy:#0f2744;--blue:#1a4d8f;--sky:#2e86c1;--accent:#e8a020;--red:#c0392b;--light:#eaf4fc;--white:#fafcff;--gray:#5a6a7a;--ink:#1a2030;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Source Serif 4',Georgia,serif;background:var(--white);color:var(--ink);line-height:1.7;}
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--sky) 100%);color:white;padding:64px 40px 80px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+  .hero-inner{max-width:900px;margin:0 auto;position:relative;}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:16px;}
+  .hero h1 span{color:var(--accent);}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:20px;font-size:0.9rem;opacity:0.85;margin-bottom:32px;}
+  .hero-meta span::before{content:'◆ ';color:var(--accent);}
+  .download-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--navy);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;padding:14px 28px;border-radius:6px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(0,0,0,0.3);cursor:pointer;border:none;}
+  .download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+  .download-btn svg{width:18px;height:18px;flex-shrink:0;}
+  .page{max-width:940px;margin:0 auto;padding:0 24px;}
+  .section-header{display:flex;align-items:center;gap:16px;padding:40px 0 20px;}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);white-space:nowrap;}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--navy);}
+  .section-line{flex:1;height:2px;background:linear-gradient(to right,var(--sky),transparent);}
+  .card{background:white;border:1px solid #dde8f0;border-radius:12px;padding:28px 32px;margin-bottom:24px;box-shadow:0 2px 12px rgba(15,39,68,0.06);}
+  .card-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;}
+  .card p{color:var(--gray);font-size:0.97rem;margin-bottom:10px;}
+  .def-box{border-left:4px solid var(--sky);background:var(--light);padding:16px 20px;border-radius:0 8px 8px 0;margin:16px 0;}
+  .def-box strong{color:var(--navy);display:block;margin-bottom:4px;font-size:1rem;}
+  .def-box p{color:var(--ink);margin:0;font-size:0.95rem;}
+  .example{background:#fff8ee;border:1px solid #f0d080;border-radius:8px;padding:16px 20px;margin:16px 0;}
+  .example .ex-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#b07800;margin-bottom:8px;}
+  .example code{font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-size:0.92em;color:var(--navy);}
+  .example p{color:var(--ink);font-size:0.95rem;margin-bottom:6px;}
+  .diagram-wrap{overflow-x:auto;margin:20px 0;}
+  .prop-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.93rem;}
+  .prop-table th{background:var(--navy);color:white;padding:10px 14px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;}
+  .prop-table td{padding:10px 14px;border-bottom:1px solid #dde8f0;vertical-align:top;}
+  .prop-table tr:nth-child(even) td{background:var(--light);}
+  .prop-table td:first-child{font-weight:600;color:var(--navy);font-family:'JetBrains Mono',monospace;font-size:0.85rem;}
+  .prop-table .math{font-family:'JetBrains Mono',monospace;color:var(--blue);font-size:0.9rem;}
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:20px 0;}
+  .video-card{background:white;border:1px solid #dde8f0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(15,39,68,0.06);transition:transform 0.2s,box-shadow 0.2s;}
+  .video-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,39,68,0.12);}
+  .video-card iframe{display:block;width:100%;aspect-ratio:16/9;border:none;}
+  .video-info{padding:14px 16px;}
+  .video-info .v-title{font-weight:600;font-size:0.95rem;color:var(--navy);margin-bottom:4px;}
+  .video-info .v-desc{font-size:0.82rem;color:var(--gray);}
+  .alert{display:flex;gap:12px;align-items:flex-start;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:14px 18px;margin:16px 0;font-size:0.93rem;}
+  .alert .icon{font-size:1.2rem;flex-shrink:0;margin-top:1px;}
+  .alert-red{background:#fdecea;border-color:var(--red);}
+  .alert p{margin:0;color:var(--ink);}
+  .number-line-visual{background:var(--light);border-radius:10px;padding:24px;margin:16px 0;text-align:center;font-family:'JetBrains Mono',monospace;overflow-x:auto;}
+  .nl-track{display:inline-flex;align-items:center;gap:0;min-width:400px;}
+  .nl-line{flex:1;height:3px;background:var(--navy);min-width:20px;}
+  .nl-arrow{font-size:1.1rem;color:var(--navy);font-weight:bold;}
+  .nl-point{display:flex;flex-direction:column;align-items:center;padding:0 12px;position:relative;}
+  .nl-tick{width:2px;height:12px;background:var(--navy);margin-bottom:4px;}
+  .nl-val{font-size:0.75rem;color:var(--navy);}
+  .nl-label{font-size:0.65rem;color:var(--sky);margin-top:2px;}
+  .download-section{background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:16px;padding:40px 36px;text-align:center;margin:40px 0 60px;color:white;}
+  .download-section h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:10px;}
+  .download-section p{opacity:0.85;margin-bottom:24px;font-size:0.97rem;}
+  .download-section .btn-group{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--navy);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;padding:14px 28px;border-radius:6px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.25);cursor:pointer;border:none;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.35);}
+  .instructions-box{background:white;border:2px solid var(--navy);border-radius:12px;padding:28px 32px;margin:24px 0;}
+  .instructions-box h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .instructions-box ol{padding-left:20px;}
+  .instructions-box li{margin-bottom:8px;color:var(--gray);font-size:0.95rem;}
+  .instructions-box li strong{color:var(--navy);}
+  .topic-badge{display:inline-block;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:10px;}
+  .topic-badge.blue{background:var(--sky);}
+  .topic-badge.gold{background:var(--accent);color:var(--navy);}
+  hr{border:none;border-top:1px solid #dde8f0;margin:40px 0;}
+  footer{background:var(--navy);color:rgba(255,255,255,0.6);text-align:center;padding:24px;font-size:0.82rem;font-family:'JetBrains Mono',monospace;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .fade-up{animation:fadeUp 0.6s ease both;}
+  .delay-1{animation-delay:0.1s;}
+  .delay-2{animation-delay:0.2s;}
+  @media(max-width:600px){.hero{padding:40px 20px 60px;}.card{padding:20px;}.download-section{padding:28px 20px;}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner fade-up">
+    <div class="hero-badge">Matemáticas · Grado 9° · Período 1 · 2026</div>
+    <h1>Números <span>Reales</span> y<br/>Potenciación</h1>
+    <div class="hero-meta">
+      <span>Plan de Mejoramiento — 1er Período</span>
+      <span>I.E. Sagrado Corazón de Jesús</span>
+      <span>Nivel mixto — básico + desafiante</span>
+    </div>
+    <button class="download-btn" onclick="descargarTaller()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar Taller Escrito (.docx)
+    </button>
+  </div>
+</section>
+
+<div class="page">
+
+  <div class="section-header fade-up delay-1">
+    <span class="section-number">Tema 01</span>
+    <h2 class="section-title">Números Reales</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card fade-up delay-2">
+    <div class="card-title">📚 Conceptos Fundamentales</div>
+    <span class="topic-badge">Clasificación de los números</span>
+    <div class="def-box">
+      <strong>¿Qué son los Números Reales (ℝ)?</strong>
+      <p>Los números reales son todos los números que pueden ubicarse en la recta numérica. Incluyen los <strong>racionales</strong> e <strong>irracionales</strong>. Se denotan con <code style="font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;color:var(--navy);">ℝ</code>.</p>
+    </div>
+    <p>Los números reales se organizan en subconjuntos anidados, del más pequeño al más grande:</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;width:100%;display:block;margin:auto;">
+        <rect x="10" y="10" width="680" height="180" rx="14" fill="#eaf4fc" stroke="#2e86c1" stroke-width="2"/>
+        <text x="660" y="38" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#2e86c1" text-anchor="end">ℝ — Reales</text>
+        <rect x="26" y="30" width="400" height="145" rx="12" fill="#d6eaf8" stroke="#1a4d8f" stroke-width="2"/>
+        <text x="408" y="52" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" fill="#1a4d8f" text-anchor="end">ℚ — Racionales</text>
+        <rect x="42" y="50" width="240" height="110" rx="10" fill="#c5dff5" stroke="#0f2744" stroke-width="2"/>
+        <text x="268" y="70" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#0f2744" text-anchor="end">ℤ — Enteros</text>
+        <rect x="56" y="70" width="130" height="72" rx="8" fill="#a9d0ee" stroke="#0f2744" stroke-width="1.5"/>
+        <text x="180" y="122" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700" fill="#0f2744" text-anchor="end">ℕ</text>
+        <text x="90" y="98" font-family="serif" font-size="12" fill="#0f2744" text-anchor="middle">1, 2, 3...</text>
+        <text x="90" y="114" font-family="serif" font-size="10" fill="#555" text-anchor="middle">Naturales</text>
+        <text x="215" y="104" font-family="serif" font-size="12" fill="#0f2744">−3, 0, −7</text>
+        <text x="340" y="118" font-family="serif" font-size="12" fill="#1a4d8f">½, 0.3̄, −¾</text>
+        <rect x="440" y="28" width="230" height="150" rx="12" fill="#fef9ec" stroke="#e8a020" stroke-width="2"/>
+        <text x="555" y="50" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#b07800" text-anchor="middle">Irracionales</text>
+        <text x="555" y="78" font-family="serif" font-size="14" fill="#b07800" text-anchor="middle">√2, π, e</text>
+        <text x="555" y="98" font-family="serif" font-size="11" fill="#b07800" text-anchor="middle">√3, √5, √7...</text>
+        <text x="555" y="116" font-family="serif" font-size="10" fill="#888" text-anchor="middle">Decimales infinitos</text>
+        <text x="555" y="130" font-family="serif" font-size="10" fill="#888" text-anchor="middle">no periódicos</text>
+      </svg>
+    </div>
+    <div class="def-box">
+      <strong>Números Racionales (ℚ)</strong>
+      <p>Se escriben como fracción p/q. Sus decimales son <strong>exactos</strong> o <strong>periódicos</strong>. Ej: 3/4 = 0,75 · 1/3 = 0,333...</p>
+    </div>
+    <div class="def-box">
+      <strong>Números Irracionales</strong>
+      <p>No pueden expresarse como fracción. Decimales <strong>infinitos y no periódicos</strong>. Ej: √2 = 1,41421... · π = 3,14159...</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📏 La Recta Numérica Real</div>
+    <p>Cada número real corresponde exactamente a un punto en la recta. La recta no tiene huecos.</p>
+    <div class="number-line-visual">
+      <div class="nl-track">
+        <div class="nl-arrow">←</div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">−√2</div><div class="nl-label">irracional</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">−1</div><div class="nl-label">entero</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">−½</div><div class="nl-label">racional</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">0</div><div class="nl-label">entero</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">¾</div><div class="nl-label">racional</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">1</div><div class="nl-label">natural</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-point"><div class="nl-tick"></div><div class="nl-val">π</div><div class="nl-label">irracional</div></div>
+        <div class="nl-line"></div>
+        <div class="nl-arrow">→</div>
+      </div>
+    </div>
+    <div class="example">
+      <div class="ex-label">✏️ Ejemplo resuelto</div>
+      <p>Clasifica: <code>−√9</code></p>
+      <p>→ √9 = 3 (exacta), entonces −√9 = −3 → es un <strong>número entero negativo</strong>. ¡No es irracional!</p>
+    </div>
+    <div class="alert">
+      <span class="icon">⚠️</span>
+      <div><p><strong>¡Cuidado!</strong> No todas las raíces son irracionales. Si el resultado es exacto (√4 = 2, √9 = 3), es racional. Solo son irracionales las que no simplifican a fracción.</p></div>
+    </div>
+  </div>
+
+  <div class="section-header" style="padding-top:16px;">
+    <span class="section-number">Videos</span>
+    <h2 class="section-title" style="font-size:1.3rem;">Mira antes de resolver</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="video-grid">
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/kYyDc0XRUeg" title="Números Racionales - Profe Alex" allowfullscreen loading="lazy"></iframe>
+      <div class="video-info">
+        <div class="v-title">🔢 Números Racionales — Profe Alex</div>
+        <div class="v-desc">Introducción a los números racionales: qué son, cómo se reconocen y diferencias con los irracionales.</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/G0o9qedyQU0" title="Números Enteros - Profe Alex" allowfullscreen loading="lazy"></iframe>
+      <div class="video-info">
+        <div class="v-title">📏 Números Enteros y Valor Absoluto — Profe Alex</div>
+        <div class="v-desc">Ordenar, comparar y ubicar números enteros en la recta numérica. Incluye valor absoluto.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="section-header">
+    <span class="section-number">Tema 02</span>
+    <h2 class="section-title">Potenciación</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📚 Conceptos Fundamentales</div>
+    <span class="topic-badge blue">Definición y Elementos</span>
+    <div class="def-box">
+      <strong>¿Qué es una Potencia?</strong>
+      <p>Una potencia es una multiplicación repetida del mismo número. Se escribe como aⁿ, donde <strong>a</strong> es la base y <strong>n</strong> el exponente.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;margin:16px 0;align-items:center;justify-content:center;">
+      <div style="text-align:center;background:var(--light);border-radius:10px;padding:20px 32px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:2.4rem;font-weight:700;color:var(--navy);line-height:1;">a<sup style="font-size:1.2rem;color:var(--sky);">n</sup></div>
+        <div style="display:flex;gap:28px;margin-top:10px;font-size:0.82rem;">
+          <div style="text-align:center;"><div style="color:var(--navy);font-weight:700;">a</div><div style="color:var(--gray);">Base</div></div>
+          <div style="text-align:center;"><div style="color:var(--sky);font-weight:700;">n</div><div style="color:var(--gray);">Exponente</div></div>
+        </div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;line-height:2.2;color:var(--gray);">
+        <div><code style="color:var(--navy);background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:3px;">3⁴</code> = 3×3×3×3 = <strong style="color:var(--red);">81</strong></div>
+        <div><code style="color:var(--navy);background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:3px;">(−2)³</code> = (−2)×(−2)×(−2) = <strong style="color:var(--red);">−8</strong></div>
+        <div><code style="color:var(--navy);background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:3px;">5⁰</code> = <strong style="color:var(--red);">1</strong> (cualquier base ≠ 0)</div>
+        <div><code style="color:var(--navy);background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:3px;">2⁻³</code> = 1/2³ = <strong style="color:var(--red);">1/8</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Propiedades de la Potenciación</div>
+    <span class="topic-badge gold">7 reglas que debes dominar</span><br/><br/>
+    <table class="prop-table">
+      <thead><tr><th>Propiedad</th><th>Regla</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Producto, misma base</td><td class="math">aᵐ × aⁿ = aᵐ⁺ⁿ</td><td>2³ × 2⁵ = 2⁸ = 256</td></tr>
+        <tr><td>Cociente, misma base</td><td class="math">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</td><td>3⁷ ÷ 3⁴ = 3³ = 27</td></tr>
+        <tr><td>Potencia de potencia</td><td class="math">(aᵐ)ⁿ = aᵐˣⁿ</td><td>(5²)³ = 5⁶ = 15 625</td></tr>
+        <tr><td>Potencia de un producto</td><td class="math">(a × b)ⁿ = aⁿ × bⁿ</td><td>(2×3)⁴ = 2⁴ × 3⁴ = 1296</td></tr>
+        <tr><td>Exponente cero</td><td class="math">a⁰ = 1  (a ≠ 0)</td><td>7⁰ = 1 · (−5)⁰ = 1</td></tr>
+        <tr><td>Exponente negativo</td><td class="math">a⁻ⁿ = 1/aⁿ</td><td>4⁻² = 1/16 · 10⁻³ = 0,001</td></tr>
+        <tr><td>Exponente uno</td><td class="math">a¹ = a</td><td>99¹ = 99</td></tr>
+      </tbody>
+    </table>
+    <div class="example">
+      <div class="ex-label">✏️ Ejemplo paso a paso</div>
+      <p>Simplifica: <code>(2³ × 2⁴) ÷ 2⁵</code></p>
+      <p><strong>Paso 1:</strong> Multiplica misma base → <code>2³ × 2⁴ = 2⁷</code></p>
+      <p><strong>Paso 2:</strong> Divide misma base → <code>2⁷ ÷ 2⁵ = 2² = 4</code></p>
+    </div>
+    <div class="alert alert-red">
+      <span class="icon">🚫</span>
+      <div><p><strong>Error frecuente:</strong> 2³ × 2⁵ ≠ 4⁸. La base NO cambia, solo se suman exponentes: 2³ × 2⁵ = 2⁸.</p></div>
+    </div>
+  </div>
+
+  <div class="section-header" style="padding-top:16px;">
+    <span class="section-number">Video</span>
+    <h2 class="section-title" style="font-size:1.3rem;">Propiedades explicadas en video</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="video-grid" style="grid-template-columns:1fr;">
+    <div class="video-card" style="max-width:560px;margin:0 auto;">
+      <iframe src="https://www.youtube.com/embed/-oOKjJhK7Mc" title="Propiedades de la Potenciación - Profe Alex" allowfullscreen loading="lazy"></iframe>
+      <div class="video-info">
+        <div class="v-title">⚡ Propiedades de la Potenciación — Profe Alex</div>
+        <div class="v-desc">Bases negativas, exponente cero y uno. Explicación detallada paso a paso con ejemplos.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="section-header">
+    <span class="section-number">Taller</span>
+    <h2 class="section-title">Instrucciones del Trabajo Escrito</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="instructions-box">
+    <h3>📋 ¿Cómo presentar el taller?</h3>
+    <ol>
+      <li><strong>Descarga</strong> el archivo .docx con el botón de abajo.</li>
+      <li><strong>Imprime</strong> el taller o resuélvelo directamente en el archivo si tienes computador.</li>
+      <li><strong>Muestra todos los procedimientos</strong> — respuestas sin desarrollo no tienen valor.</li>
+      <li>El taller tiene <strong>dos temas</strong>: Números Reales y Potenciación, cada uno con Parte A básica (40%) y Parte B desafiante (60%).</li>
+      <li>La <strong>nota final</strong>: Taller escrito (40%) + Asesoría (20%) + Sustentación (40%).</li>
+      <li><strong>Fecha de entrega:</strong> según las fechas de tu Plan de Mejoramiento.</li>
+    </ol>
+  </div>
+
+  <div class="download-section">
+    <h2>¿Listo para resolver el taller?</h2>
+    <p>Descarga el documento Word con todos los ejercicios, espacios para procedimientos y tabla de calificación.</p>
+    <div class="btn-group">
+      <button class="btn-primary" onclick="descargarTaller()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar Taller — Grado 9°
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Institución Educativa Sagrado Corazón de Jesús · Matemáticas Grado 9° · Plan de Mejoramiento Período 1 · 2026
+</footer>
+
+<script>
+const DOCX_B64 = "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";
+function descargarTaller() {
+  try {
+    const binary = atob(DOCX_B64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const blob = new Blob([bytes], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Taller_Grado9_Numeros_Reales_Potenciacion.docx";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+  } catch(e) {
+    alert("Error al generar el archivo. Intenta de nuevo o contacta al docente.");
+  }
+}
+</script>
+</body>
+</html>
